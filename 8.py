@@ -252,3 +252,37 @@ for l in lines:
     sum += int(''.join(str([i for i,x in enumerate(mapped) if x == o][0]) for o in l[1]))
 
 print(sum)
+
+sum = 0
+for l in lines:
+    map = { x: None for x in l[0] }
+
+    one = [x for x in l[0] if len(x) == 2][0]
+    seven = [x for x in l[0] if len(x) == 3][0]
+    four = [x for x in l[0] if len(x) == 4][0]
+    eight = [x for x in l[0] if len(x) == 7][0]
+
+    map[one] = '1'
+    map[seven] = '7'
+    map[four] = '4'
+    map[eight] = '8'
+
+    nine = [x for x in l[0] if len(x) == 6 and set(x) > set(four)][0]
+    six = [x for x in l[0] if len(x) == 6 and not set(x) > set(one)][0]
+    map[nine] = '9'
+    map[six] = '6'
+
+    zero = [x for x in l[0] if len(x) == 6 and map[x] is None][0]
+    map[zero] = '0'
+
+    five = [x for x in l[0] if len(x) == 5 and set(six) > set(x)][0]
+    three = [x for x in l[0] if len(x) == 5 and set(x) > set(one)][0]
+    map[five] = '5'
+    map[three] = '3'
+
+    two = [x for x in l[0] if len(x) == 5 and map[x] is None][0]
+    map[two] = '2'
+
+    sum += int(''.join(str(map[x]) for x in l[1]))
+
+print(sum)
